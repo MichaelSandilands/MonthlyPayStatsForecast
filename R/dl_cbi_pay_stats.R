@@ -12,10 +12,12 @@
 #' @importFrom stringr str_c str_detect
 #' @importFrom readxl read_excel
 #' @importFrom utils download.file
+#' @importFrom magrittr %>%
 cbi_download <- function(dest_path = "data/raw_monthly_card_payments.xlsx") {
 
   # The specific URL that contains the download links
-  data_page_url <- "https://www.centralbank.ie/statistics/data-and-analysis/monthly-card-payment-statistics"
+  data_page_url <- str_c("https://www.centralbank.ie/statistics/",
+                         "data-and-analysis/monthly-card-payment-statistics")
   base_url <- "https://www.centralbank.ie"
 
   # Find the link to the latest Excel file on the specific data page
@@ -43,8 +45,8 @@ cbi_download <- function(dest_path = "data/raw_monthly_card_payments.xlsx") {
 
   # Check if the new file is identical to the existing one
   if (file.exists(dest_path) &&
-      identical(readxl::read_excel(dest_path, sheet = "Master Data"),
-                readxl::read_excel(temp_path, sheet = "Master Data"))) {
+        identical(readxl::read_excel(dest_path, sheet = "Master Data"),
+                  readxl::read_excel(temp_path, sheet = "Master Data"))) {
     file.remove(temp_path)
     message("No new data found. Using existing file.")
   } else {
