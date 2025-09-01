@@ -18,6 +18,8 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/MonthlyPayStatsForecast)](https://CRAN.R-project.org/package=MonthlyPayStatsForecast)
+[![R-CMD-check](https://github.com/MichaelSandilands/MonthlyPayStatsForecast/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MichaelSandilands/MonthlyPayStatsForecast/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/MichaelSandilands/MonthlyPayStatsForecast/graph/badge.svg)](https://app.codecov.io/gh/MichaelSandilands/MonthlyPayStatsForecast)
 <!-- badges: end -->
 
 The goal of MonthlyPayStatsForecast is to ...
