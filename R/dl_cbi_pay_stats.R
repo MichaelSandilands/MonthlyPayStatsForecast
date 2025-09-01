@@ -38,7 +38,10 @@ cbi_download <- function(dest_path = "data/raw_monthly_card_payments.xlsx") {
 
   # Download the file to a temporary location
   temp_path <- tempfile(fileext = ".xlsx")
-  download.file(monthly_card_pay_stats_url, destfile = temp_path, quiet = TRUE)
+  download.file(monthly_card_pay_stats_url,
+                destfile = temp_path,
+                quiet = TRUE,
+                mode = "wb")
 
   # Create the destination directory if it doesn't exist
   dir.create(dirname(dest_path), recursive = TRUE, showWarnings = FALSE)
