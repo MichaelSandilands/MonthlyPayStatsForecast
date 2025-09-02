@@ -14,8 +14,16 @@ RoxygenNote: 7.3.2
 URL: https://github.com/MichaelSandilands/MonthlyPayStatsForecast, https://michaelsandilands.github.io/MonthlyPayStatsForecast/
 BugReports: https://github.com/MichaelSandilands/MonthlyPayStatsForecast/issues
 Imports: 
+    dplyr,
+    janitor,
+    lubridate,
     magrittr,
+    openxlsx,
+    readr,
     readxl,
+    rlang,
     rvest,
     stringr,
+    tibble,
+    tidyr,
     utils

@@ -13,7 +13,7 @@
 #' @importFrom readxl read_excel
 #' @importFrom utils download.file
 #' @importFrom magrittr %>%
-cbi_download <- function(dest_path = "data/raw_monthly_card_payments.xlsx") {
+cbi_download <- function(dest_path = "raw_monthly_card_payments.xlsx") {
 
   # The specific URL that contains the download links
   data_page_url <- str_c("https://www.centralbank.ie/statistics/",
@@ -61,3 +61,53 @@ cbi_download <- function(dest_path = "data/raw_monthly_card_payments.xlsx") {
 
   return(invisible(dest_path))
 }
+
+
+#' Read and Clean Card Payment Statistics
+#'
+#' This function reads the "Master Data" sheet from the monthly card payments
+#' Excel file, cleans the column names, and formats the reporting period.
+#'
+#' @param file_path The path to the Excel file containing the data.
+#' @return A clean tibble with the payment statistics.
+#' @export
+#' @importFrom readxl read_excel
+#' @importFrom dplyr mutate across where
+#' @importFrom janitor clean_names
+#' @importFrom lubridate ymd
+#' @importFrom tidyr replace_na
+#' @importFrom magrittr %>%
+cbi_read_data <- function(file_path) {
+
+  if (!file.exists(file_path)) {
+    stop("File not found: ", file_path)
+  }
+
+  df <- readxl::read_excel(file_path, sheet = "Master Data")
+
+  col_check <- df %>% colnames()
+
+  expected_cols <- c(
+    "Reporting Period", "Table", "Category", "DSI", "Channel Type",
+    "Geographical Description", "Series Description", "Sector", "Sub-sector",
+    "Observation Type", "Observation Value"
+  )
+
+  if (!identical(col_check, expected_cols)) {
+
+    stop("Unexpected column in data")
+
+  }
+
+  df %>%
+    janitor::clean_names() %>%
+    dplyr::mutate(reporting_period = lubridate::ymd(reporting_period)) %>%
+    dplyr::mutate(
+      dplyr::across(
+        c(sector, sub_sector),
+        ~ tidyr::replace_na(.x, "")
+      )
+    )
+}
+
+utils::globalVariables(c("reporting_period", "sector", "sub_sector"))

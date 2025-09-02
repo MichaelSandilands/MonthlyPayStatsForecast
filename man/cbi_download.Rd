@@ -4,7 +4,7 @@
 \alias{cbi_download}
 \title{Download Monthly Card Payment Statistics}
 \usage{
-cbi_download(dest_path = "data/raw_monthly_card_payments.xlsx")
+cbi_download(dest_path = "raw_monthly_card_payments.xlsx")
 }
 \arguments{
 \item{dest_path}{The full path where the Excel file should be saved,
